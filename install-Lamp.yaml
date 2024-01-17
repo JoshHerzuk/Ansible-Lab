@@ -1,0 +1,48 @@
+---
+-hosts: all
+ become: yes
+ tasks:
+ - name: create new user
+   user:
+    name: web
+    group: sudo
+    createhome: yes
+    home: /home/web
+    state: present
+    shell: /bin/bash
+
+ - name: install Apache
+   apt: 
+    name: apache2
+    update_cache: yes
+    state: latest
+    
+ - name: start Apache 
+   service: 
+    name: apache2
+    state: started
+    
+ - name: install PHP
+   apt:
+    name: php
+    state: present
+    update_cache: yes
+ 
+ -name: install php ldap library
+  apt:
+   name: php-ldap
+   state: present
+   update_cache: yes
+   
+ - name: Allow port 80 on UFW firewall
+   ufw: 
+    rule: allow
+    port: 80
+    proto: tcp
+    
+ handlers:
+ - name: restart apache
+   service:
+    name: apache2
+    state: restarted
+ 
