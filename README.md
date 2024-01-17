@@ -22,25 +22,23 @@ Make sure both machines are up to date and that ssh is enabled: <br/>
  - 	Sudo apt-get update
  - 	Sudo apt-get upgrade
  - 	Sudo systemctl enable ssh
-
-<br />
 <br />
 
 Install sshpass on both machines:  <br/>
   -  Sudo apt-get install sshpass
 <br />
-<br />
+
 
 On the client machine set the root  password for the user: <br/>
    -  Sudo passwd root
 <br />
-<br />
+
 
 Also on the client machine allow login to root over ssh:  <br/>
    -  Sudo sed – ‘s/#PermitRootLogin prohibit-password/PermitRootLogin yes/’ etc/ssh/ssh_config
    - 	Service ssh restart
 <br />
-<br />
+
 
 On the Ansible server install ansible:  <br/>
   -  Sudo apt-add-repository -y ppa:ansible/ansible
@@ -48,7 +46,7 @@ On the Ansible server install ansible:  <br/>
   -  Sudo apt-get install -y ansible
 
 <br />
-<br />
+
 
 Create and edit the ansible config file: <br/>
   -  ansible-config init --disabled > ansible.cfg
@@ -59,7 +57,7 @@ Create and edit the ansible config file: <br/>
     -  add the line: Host_key_checking = false in the [defaults] section
 
 <br />
-<br />
+
 
 Edit the Hosts file and add the IP of the client machine to the top of the file near the comments with the other Ips then add the following lines to the bottom of the hosts file:  <br/>
   -  [all:vars] <br/>
@@ -70,7 +68,7 @@ Edit the Hosts file and add the IP of the client machine to the top of the file 
  Verify that your setup is configured properly by running the following command: <br/>
   - ansible all -m ping
 <br />
-<br />
+
  If everything worked correctly you should get a message that looks like this:
 <br/>
 <img src="https://i.imgur.com/Ep9VfHk.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
